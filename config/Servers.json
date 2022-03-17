@@ -1,0 +1,7 @@
+{
+  "DevOrg01": {
+    "url": "http://automationpractice.com/index.php",
+    "token base uri": "https://na174.salesforce.com/services/oauth2/token",
+    "service base uri": "https://na174.salesforce.com/services/data/v20.0"
+  }
+}
