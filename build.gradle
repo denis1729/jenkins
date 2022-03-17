@@ -48,9 +48,7 @@ dependencies {
 
 test {
     useTestNG() {
-        {
-            suites 'src/test/resources/ejecucion_test.xml'
-        }
+        suites 'src/test/resources/ejecucion_test.xml'
     }
     jvmArgs(["-Ddataproviderthreadcount=${threads}"])
     scanForTestClasses = false
