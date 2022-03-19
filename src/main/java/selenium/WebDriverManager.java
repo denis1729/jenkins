@@ -1,12 +1,16 @@
 package selenium;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.webdrivers.DriverFactory;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+
 
 /**
  * Created by Silvia Valencia on 2/2/2018.
@@ -16,7 +20,7 @@ public class WebDriverManager {
     private Logger log = Logger.getLogger(getClass());
     private WebDriverConfigReader webDriverConfigReader = WebDriverConfigReader.getInstance();
     private WebDriver webDriver;
-    private WebDriverWait webDriverWait;
+    private Wait<WebDriver> webDriverWait;
 
     private static WebDriverManager instance = null;
 
@@ -39,9 +43,11 @@ public class WebDriverManager {
         this.webDriver = DriverFactory.getDriver();
         this.webDriver.manage().window().maximize();
         this.webDriver.manage().timeouts().
-                implicitlyWait(webDriverConfigReader.getImplicitWaitTime(), TimeUnit.SECONDS);
-        webDriverWait = new WebDriverWait(webDriver, webDriverConfigReader.getExplicitWaitTime(),
-                webDriverConfigReader.getWaitSleepTime());
+                implicitlyWait(Duration.ofSeconds(webDriverConfigReader.getImplicitWaitTime()));
+        webDriverWait = new FluentWait<>(webDriver).
+                withTimeout(Duration.ofSeconds(webDriverConfigReader.getExplicitWaitTime())).
+                pollingEvery(Duration.ofMillis(webDriverConfigReader.getWaitSleepTime())).
+                ignoring(NoSuchElementException.class);
     }
 
     /**
@@ -56,7 +62,7 @@ public class WebDriverManager {
      * Gets the WebDriver Wait.
      * @return WebDriverWait.
      */
-    public WebDriverWait getWait() {
+    public Wait<WebDriver> getWait() {
         return webDriverWait;
     }
 

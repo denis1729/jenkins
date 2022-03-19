@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.HashMap;
 
@@ -16,23 +17,16 @@ class Chrome implements IDriver {
     @Override
     public WebDriver initDriver() {
         WebDriverManager.chromedriver().setup();
-
-        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
-
-        //Boolean to specify if ask the user to download a file (true) or  download automatically (false)
         chromePrefs.put("download.prompt_for_download", "false");
-
-        //String to specify where to download files to by default.
-//        chromePrefs.put("download.default_directory", file.getAbsolutePath());
-
+        DesiredCapabilities capabilities = new DesiredCapabilities();//modo privado
         ChromeOptions chromeOptions = new ChromeOptions();
-
-        // Passing the disable-infobars ChromeOption to the WebDriver,
-        // prevents Chrome from displaying this notification.
-        // Chrome is being controlled by automated test software
         chromeOptions.addArguments("disable-infobars");
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
+        chromeOptions.addArguments("incognito");//modo privado
+        chromeOptions.addArguments("use-fake-ui-for-media-stream");
+        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);//modo privado
 
         return new ChromeDriver(chromeOptions);
     }

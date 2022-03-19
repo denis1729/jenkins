@@ -3,14 +3,14 @@ package ui;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Wait;
 import selenium.WebDriverManager;
 import selenium.WebDriverTools;
 
 public abstract class BasePage {
     protected Logger log = Logger.getLogger(getClass());
     protected WebDriver driver;
-    protected WebDriverWait wait;
+    protected Wait<WebDriver> wait;
     protected WebDriverTools driverTools;
 
     /**
