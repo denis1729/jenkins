@@ -1,8 +1,8 @@
 {
   "chrome": {
-    "serverUrl": "192.168.0.25",
-    "platform": "Debian10",
-    "platformName": "WIN10",
+    "serverUrl": "http://192.168.0.16",
+    "platform": "Linux",
+    "platformName": "Debian",
     "browserName": "chrome",
     "version": "97.0",
     "commandTimeout": "300"
