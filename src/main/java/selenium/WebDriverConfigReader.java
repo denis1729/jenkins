@@ -4,15 +4,17 @@ import org.apache.log4j.Logger;
 import utils.JsonReader;
 
 public class WebDriverConfigReader {
-    private Logger log = Logger.getLogger(getClass());
+    private final Logger log = Logger.getLogger(getClass());
 
     private static final String BROWSER = "browser";
     private static final String DRIVER = "web driver";
+    private static final String REMOTE = "remote";
     private static final String IMPLICIT_WAIT_TIME = "implicit wait time";
     private static final String EXPLICIT_WAIT_TIME = "explicit wait time";
     private static final String WAIT_SLEEP_TIME = "wait sleep time";
 
     private String browser;
+    private boolean remote;
     private int implicitWaitTime;
     private int explicitWaitTime;
     private int waitSleepTime;
@@ -41,12 +43,15 @@ public class WebDriverConfigReader {
         log.info("WebDriverConfigReader initialize: Read the driver configuration settings");
         JsonReader configReader = new JsonReader(webDriverConfigFilename);
 
-        browser = "chrome";  //Get the browser system property
+        browser = System.getProperty(BROWSER);  //Get the browser system property
         log.info("Browser name --> ".concat(browser));
 
-        implicitWaitTime = Integer.valueOf(configReader.getKeyValue(DRIVER, IMPLICIT_WAIT_TIME));
-        explicitWaitTime = Integer.valueOf(configReader.getKeyValue(DRIVER, EXPLICIT_WAIT_TIME));
-        waitSleepTime = Integer.valueOf(configReader.getKeyValue(DRIVER, WAIT_SLEEP_TIME));
+        remote = System.getProperty(REMOTE).equals("si");  //Get the browser system property
+        log.info("Browser remote --> ".concat(String.valueOf(remote)));
+
+        implicitWaitTime = Integer.parseInt(configReader.getKeyValue(DRIVER, IMPLICIT_WAIT_TIME));
+        explicitWaitTime = Integer.parseInt(configReader.getKeyValue(DRIVER, EXPLICIT_WAIT_TIME));
+        waitSleepTime = Integer.parseInt(configReader.getKeyValue(DRIVER, WAIT_SLEEP_TIME));
     }
 
     /**
@@ -56,6 +61,10 @@ public class WebDriverConfigReader {
      */
     public String getBrowser() {
         return browser;
+    }
+
+    public boolean getRemote() {
+        return remote;
     }
 
     /**

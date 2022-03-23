@@ -16,6 +16,10 @@ public class AutomationSFDC {
             System.getProperty("user.dir") + File.separator + "config" + File.separator + "User.json";
     private final String serversConfigFileName =
             System.getProperty("user.dir") + File.separator + "config" + File.separator + "Servers.json";
+    private final String environmentConfigFileName =
+            System.getProperty("user.dir") + File.separator + "config" + File.separator + "EnvironmentConfig.json";
+    private final String remoteServerConfigFileName =
+            System.getProperty("user.dir") + File.separator + "config" + File.separator + "RemoteServerConfig.json";
 
     private static AutomationSFDC instance;
 
@@ -24,6 +28,8 @@ public class AutomationSFDC {
      */
     private AutomationSFDC() {
         PropertyConfigurator.configure("log.properties");
+        EnvironmentConfigReader.getInstance().initialize(environmentConfigFileName);
+        ServerRemoteConfigReader.getInstance().initialize(remoteServerConfigFileName);
         WebDriverConfigReader.getInstance().initialize(webDriverConfigFilename);
         UsersConfigReader.getInstance().initialize(usersConfigFileName);
         ServersConfigReader.getInstance().initialize(serversConfigFileName);

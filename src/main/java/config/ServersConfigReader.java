@@ -44,7 +44,7 @@ public final class ServersConfigReader {
         JsonReader jsonReader = new JsonReader(ServersConfigFileName);
 
         //Get the server property
-        serverAlias = "DevOrg01";
+        serverAlias = System.getProperty(SERVER);
         log.info("Server Alias --> " + serverAlias);
 
 

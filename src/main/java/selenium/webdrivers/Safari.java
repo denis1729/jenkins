@@ -1,11 +1,10 @@
 package selenium.webdrivers;
 
 import config.ServerRemoteConfigReader;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import selenium.entities.ServerRemote;
 
 import java.net.MalformedURLException;
@@ -13,29 +12,31 @@ import java.net.URL;
 import java.time.Duration;
 
 /**
- * La clase FireFox es un navegador que extiende de la clase DriverAbstract.
+ * La clase Safari es un navegador que extiende de la clase DriverAbstract.
  * @author Denis Camacho Camacho
  * @since 10/20/2021
  */
-class FireFox extends DriverAbstract {
-
+public class Safari extends DriverAbstract {
     /**
      * Inicializa el Web Driver.
-     * @return Un FireFoxDriver.
+     *
+     * @return WebDriver.
      */
     @Override
     public WebDriver initDriver() {
-        WebDriverManager.firefoxdriver().setup();
-        return new FirefoxDriver();
+        webDriver = new SafariDriver();
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        return webDriver;
     }
 
     /**
      * Inicia el web driver remoto.
+     *
      * @return WebDriver
      */
     @Override
     public WebDriver initRemoteDriver() {
-        ServerRemote serverRemote = ServerRemoteConfigReader.getInstance().getServerByAlias("firefox");
+        ServerRemote serverRemote = ServerRemoteConfigReader.getInstance().getServerByAlias("safari");
 
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability(PLATFORM, serverRemote.getPlatform());
@@ -46,7 +47,7 @@ class FireFox extends DriverAbstract {
 
         try {
             webDriver = new RemoteWebDriver(new URL(serverRemote.getServerUrl()), caps);
-            webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+            webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;

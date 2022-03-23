@@ -6,19 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.webdrivers.DriverFactory;
 
 import java.time.Duration;
 
-
-/**
- * Created by Silvia Valencia on 2/2/2018.
- * Class to manage the Web Driver.
- */
 public class WebDriverManager {
-    private Logger log = Logger.getLogger(getClass());
-    private WebDriverConfigReader webDriverConfigReader = WebDriverConfigReader.getInstance();
+    private final Logger log = Logger.getLogger(getClass());
+    private final WebDriverConfigReader webDriverConfigReader = WebDriverConfigReader.getInstance();
     private WebDriver webDriver;
     private Wait<WebDriver> webDriverWait;
 

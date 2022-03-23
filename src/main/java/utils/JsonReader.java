@@ -17,7 +17,7 @@ import java.util.Iterator;
  * Util used to read the configurations from the json file.
  */
 public class JsonReader {
-    private Logger log = Logger.getLogger(getClass());
+    private final Logger log = Logger.getLogger(getClass());
     private JSONObject jsonObjectMain;
 
     /**
@@ -257,5 +257,13 @@ public class JsonReader {
      */
     public JSONArray getJsonArrayByKey(String key) {
         return (JSONArray) jsonObjectMain.get(key);
+    }
+
+    public JSONObject getJsonObjectMain() {
+        return jsonObjectMain;
+    }
+
+    public void setJsonObjectMain(JSONObject jsonObjectMain) {
+        this.jsonObjectMain = jsonObjectMain;
     }
 }

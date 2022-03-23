@@ -1,0 +1,26 @@
+{
+  "chrome": {
+    "serverUrl": "192.168.0.25",
+    "platform": "Debian10",
+    "platformName": "WIN10",
+    "browserName": "chrome",
+    "version": "97.0",
+    "commandTimeout": "300"
+  },
+  "firefox": {
+    "serverUrl": "",
+    "platform": "WIN10",
+    "platformName": "WIN10",
+    "browserName": "firefox",
+    "version": "62.0",
+    "commandTimeout": "300"
+  },
+  "edge": {
+    "serverUrl": "",
+    "platform": "WIN10",
+    "platformName": "WIN10",
+    "browserName": "edge",
+    "version": "70.0",
+    "commandTimeout": "300"
+  }
+}
