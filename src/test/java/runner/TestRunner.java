@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
         plugin = {"json:cucumber/bandeja_editar.json",
                 "pretty",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
-        tags = "@login or @buy_product")
+        tags = "@login")
 
 public class TestRunner extends AbstractTestNGCucumberTests {
     @Override
