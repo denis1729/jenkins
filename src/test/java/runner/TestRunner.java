@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         plugin = {"json:cucumber/bandeja_editar.json",
                 "pretty",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
-        "html:target/cucumber","json:target/cucumber.json"},
+        "html:target/cucumber.html","json:target/cucumber.json"},
         tags = "@login")
 
 public class TestRunner {
