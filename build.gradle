@@ -53,4 +53,5 @@ test {
     jvmArgs(["-Ddataproviderthreadcount=${threads}"])
     scanForTestClasses = false
     testLogging.showStandardStreams = true
+    useJUnit()
 }
