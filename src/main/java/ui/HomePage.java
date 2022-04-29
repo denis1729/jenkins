@@ -2,6 +2,7 @@ package ui;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import selenium.WebDriverManager;
 
 public class HomePage extends BasePage {
     @FindBy(xpath = "//*[@class='login']")
@@ -14,6 +15,15 @@ public class HomePage extends BasePage {
     private WebElement womenBtn;
 
     /**
+     * Initializes the web driver, wait, web driver tools and web elements.
+     *
+     * @param webDriverManager
+     */
+    public HomePage(WebDriverManager webDriverManager) {
+        super(webDriverManager);
+    }
+
+    /**
      * Waits until page object is loaded.
      */
     @Override
@@ -23,12 +33,11 @@ public class HomePage extends BasePage {
 
     private LoginPage clickLoginButton() {
         driverTools.clickElement(loginBtn);
-        return new LoginPage();
+        return new LoginPage(this.webDriverManager);
     }
 
-    private HomePage clickLogoutButton() {
+    private void clickLogoutButton() {
         driverTools.clickElement(logoutBtn);
-        return new HomePage();
     }
 
     private void clickWomenPage() {
@@ -39,8 +48,8 @@ public class HomePage extends BasePage {
         return clickLoginButton();
     }
 
-    public HomePage logout() {
-        return clickLogoutButton();
+    public void logout() {
+        clickLogoutButton();
     }
 
     public void goToWomenPage() {

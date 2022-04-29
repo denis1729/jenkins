@@ -3,7 +3,8 @@
 <suite name="Automation" verbose="1" parallel="methods" annotations="JDK">
     <test name="Test automation" thread-count="9">
         <classes>
-            <class name="runner.TestRunner"/>
+            <class name="runner.TestLogin"/>
+            <class name="runner.TestBuyProducts"/>
         </classes>
     </test>
 </suite>

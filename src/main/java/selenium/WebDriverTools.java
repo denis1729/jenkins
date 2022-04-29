@@ -31,10 +31,10 @@ public class WebDriverTools {
     /**
      * Constructor.
      */
-    public WebDriverTools() {
+    public WebDriverTools(WebDriverManager webDriverManager) {
         log = Logger.getLogger(getClass());
-        this.driver = WebDriverManager.getInstance().getWebDriver();
-        this.wait = WebDriverManager.getInstance().getWait();
+        this.driver = webDriverManager.getWebDriver();
+        this.wait = webDriverManager.getWait();
     }
 
     /**

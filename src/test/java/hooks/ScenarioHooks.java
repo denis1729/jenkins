@@ -2,6 +2,7 @@ package hooks;
 
 import config.AutomationSFDC;
 
+import entities.Container;
 import entities.User;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -12,26 +13,15 @@ import ui.HomePage;
 public class ScenarioHooks {
     private Logger log = Logger.getLogger(getClass());
     private HomePage homePage;
-    private User user;
+    private Container container;
 
-    public ScenarioHooks(User user) {
-        this.user = user;
+    public ScenarioHooks(Container container) {
+        this.container = container;
     }
 
     @Before(order = 101)
     public void initializeConfiguration() {
         log.info("Initializing configuration before all hooks...");
-        AutomationSFDC.getInstance().startUp();
-    }
-
-    //****************************************************************
-    //Hooks for @Login scenarios
-    //****************************************************************
-    @After(value = "@Logout")
-    public void logoutSession() {
-        log.info("After hook @Login");
-        homePage = new HomePage().logout();
-        AutomationSFDC.getInstance().shutDown();
-
+        AutomationSFDC.getInstance();
     }
 }

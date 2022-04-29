@@ -5,7 +5,7 @@ Feature: Login
   Background:
     Given I navigate to Login page
 
-  @SmokeTest @Logout
+  @Logout
   Scenario Outline: Users should be able to login using valid credentials
     When I login as "<User email>" with password "<Password>"
     Then I should login successfully with a "<Full Name>"

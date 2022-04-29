@@ -3,6 +3,7 @@ package ui;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import selenium.WebDriverManager;
 
 public class LoginPage extends BasePage {
     @FindBy(id = "email")
@@ -19,6 +20,15 @@ public class LoginPage extends BasePage {
 
     @FindBy(id = "SubmitCreate")
     private WebElement createAccountBtn;
+
+    /**
+     * Initializes the web driver, wait, web driver tools and web elements.
+     *
+     * @param webDriverManager
+     */
+    public LoginPage(WebDriverManager webDriverManager) {
+        super(webDriverManager);
+    }
 
 
     /**
@@ -63,7 +73,7 @@ public class LoginPage extends BasePage {
      */
     private ProfilePage clickLoginButton() {
         driverTools.clickElement(loginBtn);
-        return new ProfilePage();
+        return new ProfilePage(this.webDriverManager);
     }
 
     /**

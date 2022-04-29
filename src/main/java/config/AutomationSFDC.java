@@ -46,19 +46,4 @@ public class AutomationSFDC {
         }
         return instance;
     }
-
-    /**
-     * Starts the execution.
-     */
-    public void startUp() {
-        log.info("-----Start Automation execution-----");
-        WebDriverManager.getInstance().initialize();
-    }
-
-    /**
-     * Ends the execution.
-     */
-    public void shutDown() {
-        WebDriverManager.getInstance().quitDriver();
-    }
 }

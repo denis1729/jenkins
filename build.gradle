@@ -47,11 +47,10 @@ dependencies {
 }
 
 test {
-//    useTestNG() {
-//        suites 'src/test/resources/ejecucion_test.xml'
-//    }
-//    jvmArgs(["-Ddataproviderthreadcount=${threads}"])
-//    scanForTestClasses = false
-//    testLogging.showStandardStreams = true
-    useJUnit()
+    useTestNG() {
+        suites 'src/test/resources/ejecucion_test.xml'
+    }
+    jvmArgs(["-Ddataproviderthreadcount=${threads}"])
+    scanForTestClasses = false
+    testLogging.showStandardStreams = true
 }

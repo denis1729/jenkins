@@ -16,23 +16,10 @@ public class WebDriverManager {
     private WebDriver webDriver;
     private Wait<WebDriver> webDriverWait;
 
-    private static WebDriverManager instance = null;
-
-    /**
-     * Gets the instance of the Web Driver.
-     * @return WebDriverManager.
-     */
-    public static WebDriverManager getInstance() {
-        if (instance == null || instance.webDriver == null) {
-            instance = new WebDriverManager();
-        }
-        return instance;
-    }
-
     /**
      * Initializes the settings for the driver.
      */
-    public void initialize() {
+    public WebDriverManager() {
         log.info("WebDriverManager initialize: Initializing the web driver");
         this.webDriver = DriverFactory.getDriver();
         this.webDriver.manage().window().maximize();

@@ -2,10 +2,20 @@ package ui.order;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import selenium.WebDriverManager;
 
 public abstract class PaymentPage extends Cart {
     @FindBy(xpath = "//*[@id='cart_navigation']//child::span")
     private WebElement confirmBtn;
+
+    /**
+     * Initializes the web driver, wait, web driver tools and web elements.
+     *
+     * @param webDriverManager
+     */
+    public PaymentPage(WebDriverManager webDriverManager) {
+        super(webDriverManager);
+    }
 
 
     public void clickConfirmButton() {

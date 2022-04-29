@@ -1,4 +1,5 @@
 package ui;
+
 import config.ServersConfigReader;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -8,24 +9,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PageTransporter {
-    private Logger log = Logger.getLogger(getClass());
-    private String baseURL = ServersConfigReader.getInstance().getURL();
-    private WebDriver webDriver = WebDriverManager.getInstance().getWebDriver();
-    private static PageTransporter instance;
+    private final Logger log = Logger.getLogger(getClass());
+    private final String baseURL;
+    private final WebDriver webDriver;
+    private final WebDriverManager webDriverManager;
+
 
     /**
      * Constructor of page transporter.
      */
     public PageTransporter() {
-        initialize();
+        log.info("Initialize the page transporter");
+        this.baseURL = ServersConfigReader.getInstance().getURL();
+        this.webDriverManager = new WebDriverManager();
+        this.webDriver = webDriverManager.getWebDriver();
     }
 
-    /**
-     * Initializes page transporter.
-     */
-    private void initialize() {
-        log.info("Initialize the page transporter");
-    }
 
     /**
      * Goes to the given URL.
@@ -35,6 +34,7 @@ public class PageTransporter {
      */
     private void goToURL(final String url) throws MalformedURLException {
         try {
+            webDriver.manage().deleteAllCookies();
             webDriver.navigate().to(new URL(url));
         } catch (MalformedURLException e) {
             log.error("Could not go to URL", e);
@@ -50,6 +50,10 @@ public class PageTransporter {
      */
     public HomePage navigateToHomePage() throws MalformedURLException {
         goToURL(baseURL);
-        return new HomePage();
+        return new HomePage(this.webDriverManager);
+    }
+
+    public WebDriverManager getWebDriverManager() {
+        return webDriverManager;
     }
 }

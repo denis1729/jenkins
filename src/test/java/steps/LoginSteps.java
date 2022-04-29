@@ -1,7 +1,10 @@
 package steps;
 
+import config.AutomationSFDC;
 import config.UsersConfigReader;
+import entities.Container;
 import entities.User;
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -26,16 +29,18 @@ public class LoginSteps {
     private ProfilePage profilePage;
 
     // Entities
-    private User user;
+    private Container container;
 
-    public LoginSteps(User user) {
+    public LoginSteps(Container container) {
+        this.container = container;
         this.pageTransporter = new PageTransporter();
-        this.user = user;
+        this.container.pageTransporter = pageTransporter;
     }
 
     @Given("^I navigate to Login page$")
     public void i_navigate_to_login_page() throws MalformedURLException {
         //Use this step for login feature scenarios
+
         homePage = pageTransporter.navigateToHomePage();
         loginPage = homePage.goToLoginPage();
     }
@@ -43,6 +48,7 @@ public class LoginSteps {
     @And("^I go to Home page$")
     public void iGoToHomePage() {
         homePage = profilePage.goHomePage();
+        container.homePage = homePage;
     }
 
     @When("^I login as \"(.*?)\" with password \"(.*?)\"$")
@@ -53,8 +59,8 @@ public class LoginSteps {
 
     @Given("^I (?:am logged in|login) as \"(.*?)\" User$")
     public void loginAsUser(final String userAlias) {
-        user = UsersConfigReader.getInstance().getUserByAlias(userAlias);
-        i_login_as_with_password(user.getUserEmail(), user.getPassword());
+        container.user = UsersConfigReader.getInstance().getUserByAlias(userAlias);
+        i_login_as_with_password(container.user.getUserEmail(), container.user.getPassword());
     }
 
     @Then("^I should login successfully with a \"(.*?)\"$")
@@ -62,5 +68,16 @@ public class LoginSteps {
         String actual = profilePage.getUserName(fullName);
         log.info(String.format("data %s and %s", fullName, actual));
         assertTrue(fullName.equalsIgnoreCase(actual), "full name the user is showed");
+    }
+
+
+    //****************************************************************
+    //Hooks for @Login scenarios
+    //****************************************************************
+    @After(value = "@Logout")
+    public void logoutSession() {
+        log.info("After hook @Login");
+        homePage.logout();
+        pageTransporter.getWebDriverManager().quitDriver();
     }
 }

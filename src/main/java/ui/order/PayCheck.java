@@ -2,6 +2,7 @@ package ui.order;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import selenium.WebDriverManager;
 
 public class PayCheck extends PaymentPage {
     @FindBy(xpath = "//*[@id='HOOK_PAYMENT']//following::a[@class='cheque']")
@@ -9,6 +10,15 @@ public class PayCheck extends PaymentPage {
 
     @FindBy(xpath = "//*[@id='center_column']/p")
     private WebElement message;
+
+    /**
+     * Initializes the web driver, wait, web driver tools and web elements.
+     *
+     * @param webDriverManager
+     */
+    public PayCheck(WebDriverManager webDriverManager) {
+        super(webDriverManager);
+    }
 
     private void clickPayMethodButton() {
         driverTools.clickElement(payMethodBtn);

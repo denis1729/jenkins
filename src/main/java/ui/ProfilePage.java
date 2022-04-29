@@ -2,6 +2,7 @@ package ui;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import selenium.WebDriverManager;
 
 public class ProfilePage extends BasePage {
     @FindBy(xpath = "//*[@class='home']")
@@ -9,6 +10,15 @@ public class ProfilePage extends BasePage {
 
     @FindBy(xpath = "//*[@class='account']")
     private WebElement userNameLabel;
+
+    /**
+     * Initializes the web driver, wait, web driver tools and web elements.
+     *
+     * @param webDriverManager
+     */
+    public ProfilePage(WebDriverManager webDriverManager) {
+        super(webDriverManager);
+    }
 
     /**
      * Waits until page object is loaded.
@@ -20,7 +30,7 @@ public class ProfilePage extends BasePage {
 
     private HomePage clickHomeButton() {
         driverTools.clickElement(homeBtn);
-        return new HomePage();
+        return new HomePage(this.webDriverManager);
     }
 
     public HomePage goHomePage() {
