@@ -1,15 +1,12 @@
-pipeline {
-  agent any
-    stage('Execute Automated Test Cases') {
-      steps {
-          sh "gradle build test"
-      }
-    }
+pipeline{
+    agent any
+      stages{
+        stage('Execute test'){
+          steps{
+                echo 'Running test'
+                sh 'gradle build test'
+                  }
+                }
 
-    stage('Cucumber Reports') {
-        steps {
-            cucumber fileIncludePattern: '*.json',
-            jsonReportDirectory: 'cucumber/'
         }
-    }
 }
