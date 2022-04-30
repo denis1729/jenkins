@@ -17,7 +17,7 @@ Feature: buy products for a women with categories dresses and tops
     Examples:
       | category | subcategory     | pay method | message                             |
       | tops     | t-shirt         | bank wire  | Your order on My Store is complete. |
-#      | tops     | blouses         | check      | Your order on My Store is complete. |
-#      | dresses  | casual dresses  | bank wire  | Your order on My Store is complete. |
-#      | dresses  | evening dresses | check      | Your order on My Store is complete. |
-#      | dresses  | summer dresses  | check      | Your order on My Store is complete. |
+      | tops     | blouses         | check      | Your order on My Store is complete. |
+      | dresses  | casual dresses  | bank wire  | Your order on My Store is complete. |
+      | dresses  | evening dresses | check      | Your order on My Store is complete. |
+      | dresses  | summer dresses  | check      | Your order on My Store is complete. |
