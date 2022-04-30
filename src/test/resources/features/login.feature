@@ -12,4 +12,4 @@ Feature: Login
 
     Examples: Short pass
       | User email               | Password | Full Name     |
-      | denis_cc1729@hotmail.com | qwerty   | Denis Camacho |
+      | denis_cc1729@hotmail.com | qwerty1   | Denis Camacho |

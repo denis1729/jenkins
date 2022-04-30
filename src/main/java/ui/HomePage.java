@@ -37,7 +37,8 @@ public class HomePage extends BasePage {
     }
 
     private void clickLogoutButton() {
-        driverTools.clickElement(logoutBtn);
+        if (driverTools.isElementDisplayed(logoutBtn))
+            driverTools.clickElement(logoutBtn);
     }
 
     private void clickWomenPage() {

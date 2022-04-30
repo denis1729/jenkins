@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Automation" verbose="1" parallel="methods" annotations="JDK">
+    <listeners>
+        <listener class-name="rerun_failet_tcs.AnnotationTransformer"></listener>
+    </listeners>
     <test name="Test automation" thread-count="9">
         <classes>
             <class name="runner.TestLogin"/>
