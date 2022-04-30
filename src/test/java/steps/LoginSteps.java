@@ -1,20 +1,24 @@
 package steps;
 
-import config.AutomationSFDC;
 import config.UsersConfigReader;
 import entities.Container;
-import entities.User;
 import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import ui.HomePage;
 import ui.LoginPage;
 import ui.PageTransporter;
 import ui.ProfilePage;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 import static org.testng.Assert.assertTrue;
@@ -29,7 +33,7 @@ public class LoginSteps {
     private ProfilePage profilePage;
 
     // Entities
-    private Container container;
+    private final Container container;
 
     public LoginSteps(Container container) {
         this.container = container;
@@ -75,9 +79,22 @@ public class LoginSteps {
     //Hooks for @Login scenarios
     //****************************************************************
     @After(value = "@Logout")
-    public void logoutSession() {
-        log.info("After hook @Login");
-        homePage.logout();
-        pageTransporter.getWebDriverManager().quitDriver();
+    public void logoutSession(Scenario scenario) {
+        log.info("After hook logout");
+        try {
+            if (scenario.isFailed()) {
+                log.error(String.format("The scenario %s failed", scenario.getName()));
+                File screenshot = ((TakesScreenshot) pageTransporter.getWebDriverManager()).getScreenshotAs(OutputType.FILE);
+
+                final byte[] fileSrc = FileUtils.readFileToByteArray(screenshot);
+                scenario.attach(fileSrc, "image/png", "failedTest");
+            }
+            homePage.logout();
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        } finally {
+            pageTransporter.getWebDriverManager().quitDriver();
+        }
+
     }
 }
