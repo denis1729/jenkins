@@ -183,11 +183,11 @@ public class WebDriverTools {
      */
     public void clickElement(WebElement webElement) {
         int contador = 0;
-        while (contador < 5) {
+        while (contador < 2) {
             try {
                 wait.until(ExpectedConditions.elementToBeClickable(webElement));
                 webElement.click();
-                contador = 5;
+                contador = 2;
             } catch (ElementClickInterceptedException | StaleElementReferenceException | TimeoutException e) {
                 log.error(e.getMessage());
                 contador++;
@@ -225,7 +225,7 @@ public class WebDriverTools {
      */
     public void clickElement(By by) {
         int contador = 0;
-        while (contador < 5) {
+        while (contador < 2) {
             try {
                 wait.until(ExpectedConditions.elementToBeClickable(by));
                 WebElement webElement = driver.findElement(by);
