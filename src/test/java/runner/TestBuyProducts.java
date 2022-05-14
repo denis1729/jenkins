@@ -8,9 +8,10 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
         features = {"src/test/resources/features"},
         glue = {"steps", "hooks"},
-        plugin = {"json:cucumber/buy_products.json",
+        plugin = {"json:target/buy_products.json",
                 "pretty",
-                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
+                "rerun:target/buyProductFailed.txt"
         },
         tags = "@buy_product")
 

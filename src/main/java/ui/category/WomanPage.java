@@ -7,7 +7,7 @@ import ui.HomePage;
 import ui.order.Cart;
 
 public abstract class WomanPage extends HomePage {
-    @FindBy(xpath = "//*[@id='center_column']/ul/li")
+    @FindBy(css = "#center_column .product-container")
     private WebElement productBtn;
 
     /**
@@ -24,6 +24,7 @@ public abstract class WomanPage extends HomePage {
     public abstract WomanPage goToSubcategoryPage(String subcategory);
 
     private Cart clickProduct() {
+        driverTools.moveToElementMouse(productBtn);
         driverTools.clickElement(productBtn);
         return new Cart(this.webDriverManager);
     }

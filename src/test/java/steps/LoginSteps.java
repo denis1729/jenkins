@@ -84,7 +84,7 @@ public class LoginSteps {
         try {
             if (scenario.isFailed()) {
                 log.error(String.format("The scenario %s failed", scenario.getName()));
-                File screenshot = ((TakesScreenshot) pageTransporter.getWebDriverManager()).getScreenshotAs(OutputType.FILE);
+                File screenshot = ((TakesScreenshot) pageTransporter.getWebDriverManager().getWebDriver()).getScreenshotAs(OutputType.FILE);
 
                 final byte[] fileSrc = FileUtils.readFileToByteArray(screenshot);
                 scenario.attach(fileSrc, "image/png", "failedTest");

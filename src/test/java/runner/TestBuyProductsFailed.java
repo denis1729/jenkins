@@ -6,17 +6,17 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
-        features = {"src/test/resources/features"},
+        features = {"@target/buyProductFailed.txt"},
         glue = {"steps", "hooks"},
-        plugin = {"json:target/login.json",
+        plugin = {"json:target/buy_products_failed.json",
                 "pretty",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
         },
-        tags = "@login")
+        tags = "@buy_product")
 
-public class TestLogin extends AbstractTestNGCucumberTests {
+public class TestBuyProductsFailed extends AbstractTestNGCucumberTests {
     @Override
-    @DataProvider
+    @DataProvider(parallel = true)
     public Object[][] scenarios() {
         return super.scenarios();
     }
