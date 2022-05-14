@@ -13,6 +13,7 @@ import org.testng.annotations.DataProvider;
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
                 "rerun:target/buyProductFailed.txt"
         },
+        monochrome = true,
         tags = "@buy_product")
 
 public class TestBuyProducts extends AbstractTestNGCucumberTests {
