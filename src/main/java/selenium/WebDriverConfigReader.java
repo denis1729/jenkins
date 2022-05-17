@@ -41,7 +41,7 @@ public class WebDriverConfigReader {
      */
     public void initialize(String webDriverConfigFilename) {
         log.info("WebDriverConfigReader initialize: Read the driver configuration settings");
-        JsonReader configReader = new JsonReader(webDriverConfigFilename);
+        JsonReader configReader = new JsonReader(webDriverConfigFilename,false);
 
         browser = System.getProperty(BROWSER);  //Get the browser system property
         log.info("Browser name --> ".concat(browser));

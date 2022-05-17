@@ -231,7 +231,7 @@ public class WebDriverTools {
                 WebElement webElement = driver.findElement(by);
                 webElement.click();
                 break;
-            } catch (ElementClickInterceptedException | StaleElementReferenceException e) {
+            } catch (ElementClickInterceptedException | StaleElementReferenceException | TimeoutException e) {
                 log.warn(e.getMessage());
                 contador++;
             }

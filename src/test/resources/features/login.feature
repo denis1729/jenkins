@@ -1,8 +1,7 @@
 @login
-Feature: Login
-  Test login page
+Feature: Test login page with email and password
 
-  Background:
+  Background: paso comun para cada scenario
     Given I navigate to Login page
 
   @Logout
@@ -11,5 +10,6 @@ Feature: Login
     Then I should login successfully with a "<Full Name>"
 
     Examples: Short pass
-      | User email               | Password | Full Name     |
-      | denis_cc1729@hotmail.com | qwerty   | Denis Camacho |
+      | User email             | Password    | Full Name    |
+      | pepito.perez@gmail.com | pepitoperez | pepito perez |
+      | pepito.perez@gmail.com | pepitoperez | pepito perez |

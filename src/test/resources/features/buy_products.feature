@@ -1,7 +1,7 @@
 @buy_product
 Feature: buy products for a women with categories dresses and tops
 
-  Background: login
+  Background: paso comun para cada scenario
     Given I navigate to Login page
       And I login as "denis" User
       And I go to Home page
@@ -17,7 +17,7 @@ Feature: buy products for a women with categories dresses and tops
     Examples:
       | category | subcategory     | pay method | message                             |
       | tops     | t-shirt         | bank wire  | Your order on My Store is complete. |
-#      | tops     | blouses         | check      | Your order on My Store is complete. |
-#      | dresses  | casual dresses  | bank wire  | Your order on My Store is complete. |
-#      | dresses  | evening dresses | check      | Your order on My Store is complete. |
-#      | dresses  | summer dresses  | check      | Your order on My Store is complete. |
+      | tops     | blouses         | check      | Your order on My Store is complete. |
+      | dresses  | casual dresses  | bank wire  | Your order on My Store is complete. |
+      | dresses  | evening dresses | check      | Your order on My Store is complete. |
+      | dresses  | summer dresses  | check      | Your order on My Store is complete. |

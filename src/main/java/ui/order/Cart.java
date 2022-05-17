@@ -1,15 +1,14 @@
 package ui.order;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.By;
+
 import selenium.WebDriverManager;
 import ui.HomePage;
 
 public class Cart extends HomePage {
-    @FindBy(id = "add_to_cart")
-    private WebElement cartBtn;
-    @FindBy(xpath = "//*[contains(@title,'Proceed')]")
-    private WebElement proceedCheckoutBtn;
+
+    private final By cartBtn = By.cssSelector("#add_to_cart>button");
+    private final By proceedCheckoutBtn = By.cssSelector("[title='Proceed to checkout']");
 
     /**
      * Initializes the web driver, wait, web driver tools and web elements.

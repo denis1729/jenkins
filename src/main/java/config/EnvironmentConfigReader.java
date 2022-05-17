@@ -36,7 +36,7 @@ public class EnvironmentConfigReader {
     public void initialize(String environmentConfigFileName) {
         log.info("ServersConfigReader initialize: Read the sever settings from " + environmentConfigFileName);
 
-        JsonReader jsonReader = new JsonReader(environmentConfigFileName);
+        JsonReader jsonReader = new JsonReader(environmentConfigFileName,false);
 
         System.setProperty(BROWSER, jsonReader.getKeyValue(BROWSER));
         System.setProperty(SERVER, jsonReader.getKeyValue(SERVER));

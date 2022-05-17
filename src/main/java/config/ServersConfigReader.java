@@ -41,7 +41,7 @@ public final class ServersConfigReader {
     public void initialize(final String ServersConfigFileName) {
         log.info("ServersConfigReader initialize: Read the sever settings from " + ServersConfigFileName);
 
-        JsonReader jsonReader = new JsonReader(ServersConfigFileName);
+        JsonReader jsonReader = new JsonReader(ServersConfigFileName,false);
 
         //Get the server property
         serverAlias = System.getProperty(SERVER);

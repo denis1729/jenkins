@@ -8,25 +8,26 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 
-/**
- * Created by Silvia Valencia on 2/2/2018.
- * Util used to read the configurations from the json file.
- */
 public class JsonReader {
     private final Logger log = Logger.getLogger(getClass());
     private JSONObject jsonObjectMain;
+    private JSONArray jsonObjectMainArray = new JSONArray();
 
     /**
      * Constructor of JsonReader.
      *
      * @param filePath - The Current path of the Json File.
      */
-    public JsonReader(String filePath) {
-        parseJSON(filePath);
+    public JsonReader(String filePath, boolean jsonArray) {
+        parseJSON(filePath, jsonArray);
+    }
+
+    public JsonReader() {
     }
 
     /**
@@ -34,11 +35,16 @@ public class JsonReader {
      *
      * @param filePath - The Current path of the Json File.
      */
-    private void parseJSON(String filePath) {
+    private void parseJSON(String filePath, boolean isJsonArray) {
         try {
             FileReader reader = new FileReader(filePath);
             JSONParser jsonParser = new JSONParser();
-            jsonObjectMain = (JSONObject) jsonParser.parse(reader);
+            if (isJsonArray) {
+                jsonObjectMainArray.addAll((JSONArray) jsonParser.parse(reader));
+            } else {
+                jsonObjectMain = (JSONObject) jsonParser.parse(reader);
+            }
+
         } catch (FileNotFoundException ex) {
             log.error("FileNotFoundException when reading the configuration file ", ex);
         } catch (ParseException ex) {
@@ -70,11 +76,23 @@ public class JsonReader {
         return (JSONArray) jsonObjectMain.get(key);
     }
 
+    public void addJsonArray(int index, Object object) {
+        jsonObjectMainArray.add(index, object);
+    }
+
+    public Object getObjectFromJsonArray(int index) {
+        return jsonObjectMainArray.get(index);
+    }
+
+    public void setObjectIntoJsonArray(int index, String key, Object value) {
+        ((JSONObject) jsonObjectMainArray.get(index)).put(key, value);
+    }
+
     /**
      * Gets the jsonObject value given the key from a jsonObject.
      *
      * @param jsonObject - the Object.
-     * @param key - the key value.
+     * @param key        - the key value.
      * @return the data with the current key.
      */
     private JSONObject getJSONObject(JSONObject jsonObject, String key) {
@@ -85,7 +103,7 @@ public class JsonReader {
      * Gets the string value given the key from an specific jsonObject.
      *
      * @param jsonObject - the Object.
-     * @param key - the key value.
+     * @param key        - the key value.
      * @return a string value.
      */
     private String getKeyValueFromJSONObject(JSONObject jsonObject, String key) {
@@ -116,8 +134,8 @@ public class JsonReader {
      * Gets a array json using the key then get the value using the key.
      *
      * @param objectName - the Object.
-     * @param idKey - the idKey for the value.
-     * @param key - the current key value.
+     * @param idKey      - the idKey for the value.
+     * @param key        - the current key value.
      * @return a value from the json.
      */
     public String getKeyValue(String objectName, String idKey, String key) {
@@ -130,8 +148,8 @@ public class JsonReader {
      * Gets the jsonObject which key and value matches the given parameters from a jsonArray.
      *
      * @param objectName - the jsonObject for the array.
-     * @param idKey - the key for the data.
-     * @param idValue - value for  matches.
+     * @param idKey      - the key for the data.
+     * @param idValue    - value for  matches.
      * @return the matched jsonObject that matches the key and value.
      */
     private JSONObject getJSONObjectFromArrayById(String objectName, String idKey, String idValue) {
@@ -150,7 +168,7 @@ public class JsonReader {
      * Gets a jsonObject from the main json and then gets a value given the key.
      *
      * @param objectName - the name of the Object.
-     * @param key - to return the data.
+     * @param key        - to return the data.
      * @return the data.
      */
     public String getKeyValue(String objectName, String key) {
@@ -162,7 +180,7 @@ public class JsonReader {
      * Gets the jsonObject which key matches the given parameters from a jsonArray.
      *
      * @param objectName - the name of the Object.
-     * @param idKey - the key for the data.
+     * @param idKey      - the key for the data.
      * @return the matched value from the key.
      */
     private JSONObject getJSONObjectFromArrayById(String objectName, String idKey) {
@@ -181,9 +199,9 @@ public class JsonReader {
      * Gets the jsonObject from the jsonArray and then gets a value given the key.
      *
      * @param objectName - the name of the Object.
-     * @param idKey - the key for the data.
-     * @param idValue - value for  matches.
-     * @param key - the current key value.
+     * @param idKey      - the key for the data.
+     * @param idValue    - value for  matches.
+     * @param key        - the current key value.
      * @return the key value.
      */
     public String getKeyValue(String objectName, String idKey, String idValue, String key) {
@@ -196,10 +214,10 @@ public class JsonReader {
      * and then gets a value given the key.
      *
      * @param objectName - the name of the Object.
-     * @param idKey - the key for the data.
-     * @param idValue - value for  matches.
-     * @param objectKey - the key of the object.
-     * @param key - the current key value.
+     * @param idKey      - the key for the data.
+     * @param idValue    - value for  matches.
+     * @param objectKey  - the key of the object.
+     * @param key        - the current key value.
      * @return the key value.
      */
     public String getKeyValue(String objectName, String idKey, String idValue, String objectKey, String key) {
@@ -213,9 +231,9 @@ public class JsonReader {
      * that contains the values for Name, Password.
      *
      * @param objectName - the name of the Object.
-     * @param idKey - the key for the data.
-     * @param idValue - value for  matches.
-     * @param key - the current key value.
+     * @param idKey      - the key for the data.
+     * @param idValue    - value for  matches.
+     * @param key        - the current key value.
      * @return the hashMap.
      */
     public HashMap<String, Object> getArrayKeyValues(String objectName, String idKey, String idValue, String key) {
@@ -265,5 +283,33 @@ public class JsonReader {
 
     public void setJsonObjectMain(JSONObject jsonObjectMain) {
         this.jsonObjectMain = jsonObjectMain;
+    }
+
+    public JSONArray getJsonObjectMainArray() {
+        return jsonObjectMainArray;
+    }
+
+    public void setJsonObjectMainArray(JSONArray jsonObjectMainArray) {
+        this.jsonObjectMainArray = jsonObjectMainArray;
+    }
+
+    /**
+     * Crea un archivo json
+     *
+     * @param pathJson directorio del archivo json
+     */
+    public void createJsonFile(String pathJson, boolean isJsonArray) {
+        FileWriter file = null;
+        try {
+            file = new FileWriter(pathJson);
+            if (isJsonArray) {
+                file.write(jsonObjectMainArray.toJSONString());
+            } else {
+                file.write(jsonObjectMain.toJSONString());
+            }
+            file.close();
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
     }
 }

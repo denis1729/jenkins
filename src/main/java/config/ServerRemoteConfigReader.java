@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * La clase ServerRemoteConfigReader crea clases de tipo ServerRemote a partir de un archivo de configuración json.
+ *
  * @author Denis Camacho Camacho
  * @since 10/20/2021
  */
@@ -44,7 +45,7 @@ public class ServerRemoteConfigReader {
     public void initialize(String serverRemoteFileName) {
         log.info("UsersConfigReader initialize: Read the users settings from " + serverRemoteFileName);
 
-        Map<String, Map<String, String>> dataRemoteServer = new JsonReader(serverRemoteFileName).getJsonObjectMain();
+        Map<String, Map<String, String>> dataRemoteServer = new JsonReader(serverRemoteFileName, false).getJsonObjectMain();
 
         servers = new HashMap<>();
         dataRemoteServer.forEach((alias, data) -> {
