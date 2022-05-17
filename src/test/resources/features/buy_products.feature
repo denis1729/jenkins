@@ -3,7 +3,7 @@ Feature: buy products for a women with categories dresses and tops
 
   Background: paso comun para cada scenario
     Given I navigate to Login page
-      And I login as "denis" User
+      And I login as "pepito" User
       And I go to Home page
 
   @Logout
