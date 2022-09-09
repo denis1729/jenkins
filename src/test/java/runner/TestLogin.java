@@ -10,10 +10,11 @@ import utils.PathReader;
 
 
 @CucumberOptions(
-        features = {"src/test/resources/features"},
-        glue = {"steps", "hooks"},
+        features = {"src/test/resources/features" },
+        glue = {"steps", "hooks" },
         plugin = {"json:target/login.json",
-                "pretty"
+                "pretty",
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
         },
         monochrome = true,
         tags = "@login")

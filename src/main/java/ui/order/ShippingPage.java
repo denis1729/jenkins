@@ -14,26 +14,17 @@ public class ShippingPage extends Cart {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager web
      */
     public ShippingPage(WebDriverManager webDriverManager) {
         super(webDriverManager);
     }
 
-
-    private void clickCheckboxButton() {
-        driverTools.clickCheckboxElement(agreeCheckbox);
-    }
-
-    private void clickProceedCheckoutButton() {
+    public void proceedCheckoutShipping() {
         driverTools.clickElement(proceedCheckoutBtn);
     }
 
-    public void proceedCheckoutShipping() {
-        clickProceedCheckoutButton();
-    }
-
     public void agreeCheckbox() {
-        clickCheckboxButton();
+        driverTools.clickCheckboxElement(agreeCheckbox);
     }
 }

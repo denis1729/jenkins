@@ -9,18 +9,15 @@ public class Cart extends HomePage {
 
     private final By cartBtn = By.cssSelector("#add_to_cart>button");
     private final By proceedCheckoutBtn = By.cssSelector("[title='Proceed to checkout']");
+    private final By quantityInput = By.id("quantity_wanted");
 
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager web
      */
     public Cart(WebDriverManager webDriverManager) {
         super(webDriverManager);
-    }
-
-    private void clickCartButton() {
-        driverTools.clickElement(cartBtn);
     }
 
     private ShoppingSummary clickProceedCheckoutButton() {
@@ -29,7 +26,12 @@ public class Cart extends HomePage {
     }
 
     public void addItemToCart() {
-        clickCartButton();
+        driverTools.clickElement(cartBtn);
+    }
+
+    public void addItemToCart(int quantity) {
+        driverTools.setInputField(quantityInput, String.valueOf(quantity));
+        driverTools.clickElement(cartBtn);
     }
 
     public ShoppingSummary proceedCheckoutShopping() {

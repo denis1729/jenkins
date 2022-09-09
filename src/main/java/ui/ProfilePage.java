@@ -5,16 +5,16 @@ import org.openqa.selenium.support.FindBy;
 import selenium.WebDriverManager;
 
 public class ProfilePage extends BasePage {
-    @FindBy(xpath = "//*[@class='home']")
+    @FindBy(css = "*.home")
     private WebElement homeBtn;
 
-    @FindBy(xpath = "//*[@class='account']")
+    @FindBy(css = "*.account")
     private WebElement userNameLabel;
 
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager web
      */
     public ProfilePage(WebDriverManager webDriverManager) {
         super(webDriverManager);
@@ -25,19 +25,15 @@ public class ProfilePage extends BasePage {
      */
     @Override
     public void waitUntilPageObjectIsLoaded() {
-
+        log.info("Into the page : " + getClass().getName());
     }
 
-    private HomePage clickHomeButton() {
+    public HomePage goHomePage() {
         driverTools.clickElement(homeBtn);
         return new HomePage(this.webDriverManager);
     }
 
-    public HomePage goHomePage() {
-        return clickHomeButton();
-    }
-
-    public String getUserName(String userName) {
+    public String getUserName() {
         return driverTools.getElementText(userNameLabel);
     }
 }

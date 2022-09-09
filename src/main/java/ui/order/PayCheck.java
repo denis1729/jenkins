@@ -8,13 +8,13 @@ public class PayCheck extends PaymentPage {
     @FindBy(xpath = "//*[@id='HOOK_PAYMENT']//following::a[@class='cheque']")
     private WebElement payMethodBtn;
 
-    @FindBy(xpath = "//*[@id='center_column']/p")
+    @FindBy(css = ".alert-success")
     private WebElement message;
 
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager web
      */
     public PayCheck(WebDriverManager webDriverManager) {
         super(webDriverManager);

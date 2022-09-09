@@ -12,19 +12,15 @@ public class ShoppingSummary extends Cart {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager web
      */
     public ShoppingSummary(WebDriverManager webDriverManager) {
         super(webDriverManager);
     }
 
-    private AddressPage clickProceedCheckoutButton() {
+    public AddressPage proceedCheckoutAddress() {
         driverTools.clickElement(proceedCheckoutBtn);
         return new AddressPage(this.webDriverManager);
-    }
-
-    public AddressPage proceedCheckoutAddress() {
-        return clickProceedCheckoutButton();
     }
 
 }

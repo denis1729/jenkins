@@ -139,7 +139,6 @@ public class MergeReports {
         }
         jsonReader.setJsonObjectMainArray(newJsonFile.getJsonObjectMainArray());
         jsonReader.createJsonFile(pathJsonFileSave, true);
-        log.info(jsonReader.getJsonObjectMainArray().toJSONString());
     }
 
     private static boolean verifySteps(JSONArray steps) {

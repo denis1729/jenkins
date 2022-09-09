@@ -1,5 +1,7 @@
 package ui.category;
 
+import entities.Product;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import selenium.WebDriverManager;
@@ -16,9 +18,9 @@ public abstract class WomanPage extends HomePage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager web
      */
-    public WomanPage(WebDriverManager webDriverManager) {
+    protected WomanPage(WebDriverManager webDriverManager) {
         super(webDriverManager);
     }
 
@@ -26,13 +28,16 @@ public abstract class WomanPage extends HomePage {
 
     public abstract WomanPage goToSubcategoryPage(String subcategory);
 
-    private Cart clickProduct() {
+    public Cart selectProduct() {
         driverTools.moveToElementMouse(productLabel);
         driverTools.clickElement(productBtn);
         return new Cart(this.webDriverManager);
     }
 
-    public Cart selectProduct() {
-        return clickProduct();
+    public Cart selectProduct(Product product) {
+        String path = "//span[contains(text(),'%s')]//parent::*//parent::*//*[@itemprop='name']//*[@title = '%s']";
+        driverTools.moveToElementMouse(By.xpath(String.format(path, product.getPrice(), product.getProductName())));
+        driverTools.clickElement(productBtn);
+        return new Cart(this.webDriverManager);
     }
 }

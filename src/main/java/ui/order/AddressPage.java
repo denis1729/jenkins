@@ -11,18 +11,14 @@ public class AddressPage extends Cart {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager web
      */
     public AddressPage(WebDriverManager webDriverManager) {
         super(webDriverManager);
     }
 
-    private ShippingPage clickProceedCheckoutButton() {
+    public ShippingPage proceedCheckoutShipping() {
         driverTools.clickElement(proceedCheckoutBtn);
         return new ShippingPage(this.webDriverManager);
-    }
-
-    public ShippingPage proceedCheckoutShipping() {
-        return clickProceedCheckoutButton();
     }
 }

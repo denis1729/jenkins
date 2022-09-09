@@ -24,7 +24,7 @@ public class LoginPage extends BasePage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager web
      */
     public LoginPage(WebDriverManager webDriverManager) {
         super(webDriverManager);
@@ -40,40 +40,12 @@ public class LoginPage extends BasePage {
     }
 
     /**
-     * Sets the user email.
-     *
-     * @param email - the user email.
-     */
-    private void setEmail(final String email) {
-        driverTools.setInputField(emailTxt, email);
-    }
-
-    /**
-     * Sets the user password.
-     *
-     * @param password - The user password.
-     */
-    private void setPassword(final String password) {
-        driverTools.setInputField(passwordTxt, password);
-    }
-
-    /**
      * Set the email for create an account
      *
      * @param email the user email
      */
-    private void setEmailCreate(final String email) {
+    public void setEmailCreate(final String email) {
         driverTools.setInputField(emailCreateTxt, email);
-    }
-
-    /**
-     * Clicks on login button.
-     *
-     * @return a list page.
-     */
-    private ProfilePage clickLoginButton() {
-        driverTools.clickElement(loginBtn);
-        return new ProfilePage(this.webDriverManager);
     }
 
     /**
@@ -84,8 +56,9 @@ public class LoginPage extends BasePage {
      * @return ProfilePage
      */
     public ProfilePage login(final String email, final String password) {
-        setEmail(email);
-        setPassword(password);
-        return clickLoginButton();
+        driverTools.setInputField(emailTxt, email);
+        driverTools.setInputField(passwordTxt, password);
+        driverTools.clickElement(loginBtn);
+        return new ProfilePage(this.webDriverManager);
     }
 }
