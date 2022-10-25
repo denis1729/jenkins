@@ -47,8 +47,6 @@ public class LoginSteps {
 
     @Given("^I navigate to Login page$")
     public void i_navigate_to_login_page() throws MalformedURLException {
-        //Use this step for login feature scenarios
-
         homePage = pageTransporter.navigateToHomePage();
         loginPage = homePage.goToLoginPage();
     }
@@ -59,21 +57,21 @@ public class LoginSteps {
         container.homePage = homePage;
     }
 
-    @When("^I login as \"(.*?)\" with password \"(.*?)\"$")
+    @When("^I login as (.*?) with password (.*?)$")
     public void i_login_as_with_password(String email, String password) {
         //Use this step for login feature scenarios
         profilePage = loginPage.login(email, password);
     }
 
-    @Given("^I (?:am logged in|login) as \"(.*?)\" User$")
+    @Given("^I (?:am logged in|login) as (.*?) User$")
     public void loginAsUser(final String userAlias) {
         container.user = UsersConfigReader.getInstance().getUserByAlias(userAlias);
         i_login_as_with_password(container.user.getUserEmail(), container.user.getPassword());
     }
 
-    @Then("^I should login successfully with a \"(.*?)\"$")
+    @Then("^I should login successfully with a (.*?)$")
     public void i_should_login_successfully_with_a(String fullName) {
-        String actual = profilePage.getUserName(fullName);
+        String actual = profilePage.getUserName();
         log.info(String.format("data %s and %s", fullName, actual));
         assertTrue(fullName.equalsIgnoreCase(actual), "full name the user is showed");
     }

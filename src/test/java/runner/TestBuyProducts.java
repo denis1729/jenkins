@@ -6,10 +6,11 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
-        features = {"src/test/resources/features"},
-        glue = {"steps", "hooks"},
+        features = {"src/test/resources/features" },
+        glue = {"steps", "hooks" },
         plugin = {"json:target/buy_products.json",
-                "pretty"
+                "pretty",
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
         },
         monochrome = true,
         tags = "@buy_product")
