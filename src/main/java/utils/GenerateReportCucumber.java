@@ -2,7 +2,7 @@ package utils;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class GenerateReportCucumber {
-    private static final Logger log = Logger.getLogger("GenerateReportCucumber");
+    private static final Logger log = LoggerSingleton.getInstance().getLogger("GenerateReportCucumber");
+
+    private GenerateReportCucumber() {
+    }
 
     public static void generateReportsCucumber(String pathCucumberFiles, String pathReportOutput) {
         log.info("Generando reporte ........................................");
@@ -27,7 +30,7 @@ public class GenerateReportCucumber {
             configuration.setBuildNumber("1");
             ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
             reportBuilder.generateReports();
-            log.info("Reporte cucumber se guardo en la direccion: \n"+outputReport.getAbsolutePath());
+            log.info("Reporte cucumber se guardo en la direccion: \n{}", outputReport.getAbsolutePath());
         }
     }
 }

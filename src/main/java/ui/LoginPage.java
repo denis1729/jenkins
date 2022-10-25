@@ -21,10 +21,16 @@ public class LoginPage extends BasePage {
     @FindBy(id = "SubmitCreate")
     private WebElement createAccountBtn;
 
+    @FindBy(css = ".alert li")
+    private WebElement messageLabel;
+
+    @FindBy(css = ".alert>p")
+    private WebElement alertLabel;
+
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public LoginPage(WebDriverManager webDriverManager) {
         super(webDriverManager);
@@ -87,5 +93,23 @@ public class LoginPage extends BasePage {
         setEmail(email);
         setPassword(password);
         return clickLoginButton();
+    }
+
+    /**
+     * This method obtain the alert message
+     *
+     * @return alert message
+     */
+    public String getAlertMessage() {
+        return driverTools.getElementText(alertLabel).trim();
+    }
+
+    /**
+     * This method obtain the error message
+     *
+     * @return error message
+     */
+    public String getErrorMessage() {
+        return driverTools.getElementText(messageLabel).trim();
     }
 }

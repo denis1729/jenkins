@@ -14,7 +14,7 @@ public class ShippingPage extends Cart {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public ShippingPage(WebDriverManager webDriverManager) {
         super(webDriverManager);

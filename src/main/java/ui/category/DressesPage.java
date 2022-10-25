@@ -12,7 +12,7 @@ public class DressesPage extends WomanPage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public DressesPage(WebDriverManager webDriverManager) {
         super(webDriverManager);

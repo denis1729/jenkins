@@ -1,14 +1,17 @@
 package utils;
 
-import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.util.Objects;
 
 public class MergeReports {
-    private static final Logger log = Logger.getLogger("MergeReports");
+    private static final Logger log = LoggerSingleton.getInstance().getLogger("MergeReports");
+
+    private MergeReports() {
+    }
 
     public static void generateMergeReport(String pathCucumberFiles,
                                            String pathCucumberFilesReport,
@@ -17,7 +20,7 @@ public class MergeReports {
         File outputCucumberFiles = new File(pathCucumberFiles);
         File outputCucumberFilesFiles = new File(pathCucumberFilesReport);
         if (outputCucumberFilesFiles.mkdir())
-            log.info("Se creo el directorio: " + outputCucumberFilesFiles.getAbsolutePath());
+            log.info("Se creo el directorio: {}", outputCucumberFilesFiles.getAbsolutePath());
         if (outputCucumberFiles.exists()) {
             for (File file : Objects.requireNonNull(outputCucumberFiles.listFiles())) {
                 if (!file.isDirectory()) {
@@ -139,12 +142,11 @@ public class MergeReports {
         }
         jsonReader.setJsonObjectMainArray(newJsonFile.getJsonObjectMainArray());
         jsonReader.createJsonFile(pathJsonFileSave, true);
-        log.info(jsonReader.getJsonObjectMainArray().toJSONString());
     }
 
     private static boolean verifySteps(JSONArray steps) {
-        for (int i = 0; i < steps.size(); i++) {
-            JSONObject step = (JSONObject) steps.get(i);
+        for (Object o : steps) {
+            JSONObject step = (JSONObject) o;
             if (!((JSONObject) step.get("result")).get("status").toString().equalsIgnoreCase("passed"))
                 return false;
         }

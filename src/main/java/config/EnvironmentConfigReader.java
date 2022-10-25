@@ -1,15 +1,17 @@
 package config;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import utils.JsonReader;
+import utils.LoggerSingleton;
 
 /**
- * La clase EnvironmentConfigReader lee el archivo de configuración para configurar el entorno en el que se trabajara.
+ * The EnvironmentConfigReader class reads configuration files to run test automation.
+ *
  * @author Denis Camacho Camacho
  * @since 10/20/2021
  */
 public class EnvironmentConfigReader {
-    private org.apache.log4j.Logger log = Logger.getLogger(getClass());
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
 
     //web
     private static final String SERVER = "server";
@@ -34,9 +36,9 @@ public class EnvironmentConfigReader {
      * Lee los valores del archivo de configuracion json.
      */
     public void initialize(String environmentConfigFileName) {
-        log.info("ServersConfigReader initialize: Read the sever settings from " + environmentConfigFileName);
+        log.info("ServersConfigReader initialize: Read the sever settings from {}", environmentConfigFileName);
 
-        JsonReader jsonReader = new JsonReader(environmentConfigFileName,false);
+        JsonReader jsonReader = new JsonReader(environmentConfigFileName, false);
 
         System.setProperty(BROWSER, jsonReader.getKeyValue(BROWSER));
         System.setProperty(SERVER, jsonReader.getKeyValue(SERVER));

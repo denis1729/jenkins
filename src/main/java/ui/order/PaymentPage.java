@@ -11,9 +11,9 @@ public abstract class PaymentPage extends Cart {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
-    public PaymentPage(WebDriverManager webDriverManager) {
+    protected PaymentPage(WebDriverManager webDriverManager) {
         super(webDriverManager);
     }
 

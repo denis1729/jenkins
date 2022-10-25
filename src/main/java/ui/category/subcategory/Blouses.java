@@ -13,7 +13,7 @@ public class Blouses extends TopsPage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public Blouses(WebDriverManager webDriverManager) {
         super(webDriverManager);

@@ -12,7 +12,7 @@ public class TShirts extends TopsPage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public TShirts(WebDriverManager webDriverManager) {
         super(webDriverManager);

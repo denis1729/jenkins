@@ -12,7 +12,7 @@ public class ShoppingSummary extends Cart {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public ShoppingSummary(WebDriverManager webDriverManager) {
         super(webDriverManager);

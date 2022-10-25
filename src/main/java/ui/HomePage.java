@@ -17,7 +17,7 @@ public class HomePage extends BasePage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public HomePage(WebDriverManager webDriverManager) {
         super(webDriverManager);
@@ -28,7 +28,7 @@ public class HomePage extends BasePage {
      */
     @Override
     public void waitUntilPageObjectIsLoaded() {
-
+        log.info("Into the home page");
     }
 
     private LoginPage clickLoginButton() {

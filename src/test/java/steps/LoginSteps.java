@@ -9,23 +9,27 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.awaitility.Awaitility;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.slf4j.Logger;
 import ui.HomePage;
 import ui.LoginPage;
 import ui.PageTransporter;
 import ui.ProfilePage;
+import utils.LoggerSingleton;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.time.Duration;
 
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class LoginSteps {
     private final PageTransporter pageTransporter;
-    private final Logger log = Logger.getLogger(getClass());
+    protected final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
 
     //Pages
     private LoginPage loginPage;
@@ -74,27 +78,49 @@ public class LoginSteps {
         assertTrue(fullName.equalsIgnoreCase(actual), "full name the user is showed");
     }
 
+    @Then("^The following alert should be display \"(.*?)\"$")
+    public void the_following_alert_display(String alert) {
+        String actual = loginPage.getAlertMessage();
+        log.info("Actual alert: {} and expected alert :{}", alert, actual);
+        assertEquals(actual, alert, "The message alert is not equals");
+    }
+
+    @Then("^I shouldn't login and show the following message \"(.*?)\"$")
+    public void i_no_should_login__with_a(String message) {
+        String actual = loginPage.getErrorMessage();
+        log.info("Actual error: {} and expected error {}", message, actual);
+        assertEquals(actual, message, "The error message is not equals");
+    }
+
 
     //****************************************************************
     //Hooks for @Login scenarios
     //****************************************************************
-    @After(value = "@Logout")
+    @After(order = 150)  //order: mientras mas mayor sea, primero se ejecutara
     public void logoutSession(Scenario scenario) {
-        log.info("After hook logout");
-        try {
-            if (scenario.isFailed()) {
-                log.error(String.format("The scenario %s failed", scenario.getName()));
-                File screenshot = ((TakesScreenshot) pageTransporter.getWebDriverManager().getWebDriver()).getScreenshotAs(OutputType.FILE);
+        log.info("Ejecutando After hook logout");
+        int timeWait = 500;//milisegundos
+        if (scenario.isFailed())
+            log.error("FALLO el scenario {}", scenario.getName());
+        else
+            log.info("scenario {} EXITOSO", scenario.getName());
 
-                final byte[] fileSrc = FileUtils.readFileToByteArray(screenshot);
-                scenario.attach(fileSrc, "image/png", "failedTest");
-            }
-            homePage.logout();
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        } finally {
-            pageTransporter.getWebDriverManager().quitDriver();
-        }
-
+        JavascriptExecutor jse = (JavascriptExecutor) pageTransporter.getWebDriverManager().getWebDriver();
+        jse.executeScript("window.scrollTo(document.body.scrollHeight, 0)");
+        Awaitility.await().pollDelay(Duration.ofMillis(timeWait)).until(() -> true);
+        byte[] screenshot = ((TakesScreenshot) pageTransporter.getWebDriverManager().getWebDriver()).
+                getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "image/png", "scenarioup");
+        jse.executeScript("window.scrollTo(0 , document.body.scrollHeight/3)");
+        Awaitility.await().pollDelay(Duration.ofMillis(timeWait)).until(() -> true);
+        byte[] screenshot1 = ((TakesScreenshot) pageTransporter.getWebDriverManager().getWebDriver()).
+                getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot1, "image/png", "scenariocenter");
+        jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        Awaitility.await().pollDelay(Duration.ofMillis(timeWait)).until(() -> true);
+        byte[] screenshot2 = ((TakesScreenshot) pageTransporter.getWebDriverManager().getWebDriver()).
+                getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot2, "image/png", "scenariodown");
+        pageTransporter.getWebDriverManager().quitDriver();
     }
 }

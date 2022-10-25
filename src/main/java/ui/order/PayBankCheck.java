@@ -14,7 +14,7 @@ public class PayBankCheck extends PaymentPage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public PayBankCheck(WebDriverManager webDriverManager) {
         super(webDriverManager);

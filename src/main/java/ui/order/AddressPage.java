@@ -11,7 +11,7 @@ public class AddressPage extends Cart {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public AddressPage(WebDriverManager webDriverManager) {
         super(webDriverManager);

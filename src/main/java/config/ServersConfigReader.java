@@ -1,23 +1,24 @@
 package config;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import utils.JsonReader;
+import utils.LoggerSingleton;
 
+/**
+ * The ServersConfigReader class reads configuration files to run test automation.
+ *
+ * @author Denis Camacho Camacho
+ * @since 10/20/2021
+ */
 public final class ServersConfigReader {
-    private Logger log = Logger.getLogger(getClass());
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
 
     //web
     private static final String SERVER = "server";
     private static final String URL = "url";
-    private final String SERVICE_BASE_URI = "service base uri";
-    private final String TOKEN_BASE_URI = "token base uri";
 
-
-    private String server;
     private String serverAlias;
-    private String url;
-    private String serviceBaseUri;
-    private String tokenBaseUri;
+    private String baseUrl;
 
     private static ServersConfigReader instance;
 
@@ -39,23 +40,17 @@ public final class ServersConfigReader {
      * @param ServersConfigFileName servers configuration file.
      */
     public void initialize(final String ServersConfigFileName) {
-        log.info("ServersConfigReader initialize: Read the sever settings from " + ServersConfigFileName);
+        log.info("ServersConfigReader initialize: Read the sever settings from {}", ServersConfigFileName);
 
-        JsonReader jsonReader = new JsonReader(ServersConfigFileName,false);
+        JsonReader jsonReader = new JsonReader(ServersConfigFileName, false);
 
         //Get the server property
         serverAlias = System.getProperty(SERVER);
-        log.info("Server Alias --> " + serverAlias);
+        log.info("Server Alias --> {}", serverAlias);
 
 
-        url = jsonReader.getKeyValue(serverAlias, URL);
-        log.info("Base URL --> " + url);
-
-        serviceBaseUri = jsonReader.getKeyValue(serverAlias, SERVICE_BASE_URI);
-        log.info("Service Base URI --> " + serviceBaseUri);
-
-        tokenBaseUri = jsonReader.getKeyValue(serverAlias, TOKEN_BASE_URI);
-        log.info("Token Base URI --> " + tokenBaseUri);
+        baseUrl = jsonReader.getKeyValue(serverAlias, URL);
+        log.info("Base URL --> {}", baseUrl);
 
     }
 
@@ -69,37 +64,11 @@ public final class ServersConfigReader {
     }
 
     /**
-     * Gets the server host name or IP.
-     *
-     * @return Server.
-     */
-    public String getServer() {
-        return server;
-    }
-
-    /**
-     * Gets the SFDC base URL.
+     * Gets the automation base URL.
      *
      * @return URL.
      */
     public String getURL() {
-        return url;
-    }
-
-
-    /**
-     * Gets..
-     * @return
-     */
-    public String getServiceBaseUri() {
-        return serviceBaseUri;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getTokenBaseUri() {
-        return tokenBaseUri;
+        return baseUrl;
     }
 }

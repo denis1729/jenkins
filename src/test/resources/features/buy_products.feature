@@ -1,12 +1,12 @@
 @buy_product
 Feature: buy products for a women with categories dresses and tops
 
-  Background: paso comun para cada scenario
+  Background: common step for each scenario
     Given I navigate to Login page
       And I login as "pepito" User
       And I go to Home page
 
-  @Logout
+  @acceptance
   Scenario Outline: Buy products with different categories
     When I go to the women's category
       And I select the product "<category>" with the subcategory of "<subcategory>"

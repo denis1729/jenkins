@@ -1,10 +1,10 @@
 package utils;
 
-import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class JsonReader {
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
     private JSONObject jsonObjectMain;
     private JSONArray jsonObjectMainArray = new JSONArray();
 

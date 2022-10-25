@@ -14,7 +14,7 @@ public class EveningDresses extends DressesPage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public EveningDresses(WebDriverManager webDriverManager) {
         super(webDriverManager);

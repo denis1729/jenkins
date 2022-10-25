@@ -16,9 +16,9 @@ public abstract class WomanPage extends HomePage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
-    public WomanPage(WebDriverManager webDriverManager) {
+    protected WomanPage(WebDriverManager webDriverManager) {
         super(webDriverManager);
     }
 

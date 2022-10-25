@@ -11,27 +11,25 @@ import ui.order.PaymentPage;
 
 public class PageFactory {
 
+    private PageFactory() {
+    }
+
     //****************************************************************
     // Pages
     //****************************************************************
 
     public static WomanPage getCategory(final String category, WebDriverManager webDriverManager) {
-        switch (category) {
-            case "dresses":
-                return new DressesPage(webDriverManager);
-
-            default:
-                return new TopsPage(webDriverManager);
+        if ("dresses".equals(category)) {
+            return new DressesPage(webDriverManager);
         }
+        return new TopsPage(webDriverManager);
     }
 
     public static TopsPage getTops(final String subCategory, WebDriverManager webDriverManager) {
-        switch (subCategory) {
-            case "t-shirts":
-                return new TShirts(webDriverManager);
-            default:
-                return new Blouses(webDriverManager);
+        if ("t-shirts".equals(subCategory)) {
+            return new TShirts(webDriverManager);
         }
+        return new Blouses(webDriverManager);
     }
 
     public static DressesPage getDresses(final String subCategory, WebDriverManager webDriverManager) {
@@ -46,11 +44,9 @@ public class PageFactory {
     }
 
     public static PaymentPage getPayment(String payment, WebDriverManager webDriverManager) {
-        switch (payment) {
-            case "bank wire":
-                return new PayBankCheck(webDriverManager);
-            default:
-                return new PayCheck(webDriverManager);
+        if ("bank wire".equals(payment)) {
+            return new PayBankCheck(webDriverManager);
         }
+        return new PayCheck(webDriverManager);
     }
 }

@@ -1,20 +1,21 @@
 package config;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import selenium.entities.ServerRemote;
 import utils.JsonReader;
+import utils.LoggerSingleton;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * La clase ServerRemoteConfigReader crea clases de tipo ServerRemote a partir de un archivo de configuración json.
+ * The ServerRemoteConfigReader class reads configuration files to run test automation.
  *
  * @author Denis Camacho Camacho
  * @since 10/20/2021
  */
 public class ServerRemoteConfigReader {
-    private Logger log = Logger.getLogger(getClass());
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
     private static final String SERVER_URL = "serverUrl";
     private static final String PLATFORM = "platform";
     private static final String PLATFORM_NAME = "platformName";
@@ -43,7 +44,7 @@ public class ServerRemoteConfigReader {
      * Lee los valores del archivo de configuracion json.
      */
     public void initialize(String serverRemoteFileName) {
-        log.info("UsersConfigReader initialize: Read the users settings from " + serverRemoteFileName);
+        log.info("UsersConfigReader initialize: Read the users settings from {}", serverRemoteFileName);
 
         Map<String, Map<String, String>> dataRemoteServer = new JsonReader(serverRemoteFileName, false).getJsonObjectMain();
 

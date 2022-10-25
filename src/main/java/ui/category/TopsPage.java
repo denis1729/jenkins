@@ -12,7 +12,7 @@ public class TopsPage extends WomanPage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public TopsPage(WebDriverManager webDriverManager) {
         super(webDriverManager);

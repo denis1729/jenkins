@@ -1,27 +1,27 @@
 package selenium;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.ui.*;
+import org.slf4j.Logger;
+import utils.LoggerSingleton;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Class to manage web driver tools.
  *
- * @author Silvia Valencia
- * @since 2/2/2018
+ * @author Denis Camacho Camacho
+ * @since 10/20/2021
  */
 public class WebDriverTools {
     private final WebDriver driver;
     private Wait<WebDriver> wait;
     private static final By CHK_BOX = By.cssSelector("input[type='checkbox']");
-    private final Logger log;
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
 
     /**
      * Generic checkbox to select or clear.
@@ -32,13 +32,12 @@ public class WebDriverTools {
      * Constructor.
      */
     public WebDriverTools(WebDriverManager webDriverManager) {
-        log = Logger.getLogger(getClass());
         this.driver = webDriverManager.getWebDriver();
         this.wait = webDriverManager.getWait();
     }
 
     /**
-     * Refresca la pagina actual.
+     * Refresh the actual page.
      */
     public void refreshPage() {
         driver.navigate().refresh();
@@ -47,7 +46,7 @@ public class WebDriverTools {
     /**
      * Permite realizar una pausa.
      *
-     * @param millSeconds - tiempo de pausa en milliseconds.
+     * @param millSeconds - time in milliseconds.
      */
     public void sleepMilliSeconds(int millSeconds) {
         try {

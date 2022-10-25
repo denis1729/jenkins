@@ -14,7 +14,7 @@ public class ProfilePage extends BasePage {
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
-     * @param webDriverManager
+     * @param webDriverManager driver
      */
     public ProfilePage(WebDriverManager webDriverManager) {
         super(webDriverManager);
@@ -25,7 +25,7 @@ public class ProfilePage extends BasePage {
      */
     @Override
     public void waitUntilPageObjectIsLoaded() {
-
+        log.info("Into the profile page");
     }
 
     private HomePage clickHomeButton() {

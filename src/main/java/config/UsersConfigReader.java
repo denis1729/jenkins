@@ -1,17 +1,24 @@
 package config;
 
 import entities.User;
-import org.apache.log4j.Logger;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import utils.LoggerSingleton;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The UsersConfigReader class reads configuration files to run test automation.
+ *
+ * @author Denis Camacho Camacho
+ * @since 10/20/2021
+ */
 public final class UsersConfigReader {
-    private Logger log = Logger.getLogger(getClass());
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
     private static final String USER_EMAIL = "user email";
     private static final String USER_PASSWORD = "user password";
     private static final String FIRST_NAME = "first name";
@@ -39,7 +46,7 @@ public final class UsersConfigReader {
      * @param UsersConfigFileName - User file of configuration.
      */
     public void initialize(final String UsersConfigFileName) {
-        log.info("UsersConfigReader initialize: Read the users settings from " + UsersConfigFileName);
+        log.info("UsersConfigReader initialize: Read the users settings from {}", UsersConfigFileName);
 
         JSONParser parser = new JSONParser();
         Object obj = null;

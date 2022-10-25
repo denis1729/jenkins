@@ -1,10 +1,11 @@
 package selenium;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import utils.JsonReader;
+import utils.LoggerSingleton;
 
 public class WebDriverConfigReader {
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
 
     private static final String BROWSER = "browser";
     private static final String DRIVER = "web driver";
@@ -41,13 +42,13 @@ public class WebDriverConfigReader {
      */
     public void initialize(String webDriverConfigFilename) {
         log.info("WebDriverConfigReader initialize: Read the driver configuration settings");
-        JsonReader configReader = new JsonReader(webDriverConfigFilename,false);
+        JsonReader configReader = new JsonReader(webDriverConfigFilename, false);
 
         browser = System.getProperty(BROWSER);  //Get the browser system property
-        log.info("Browser name --> ".concat(browser));
+        log.info("Browser name --> {}", browser);
 
         remote = System.getProperty(REMOTE).equals("si");  //Get the browser system property
-        log.info("Browser remote --> ".concat(String.valueOf(remote)));
+        log.info("Browser remote --> {}", remote);
 
         implicitWaitTime = Integer.parseInt(configReader.getKeyValue(DRIVER, IMPLICIT_WAIT_TIME));
         explicitWaitTime = Integer.parseInt(configReader.getKeyValue(DRIVER, EXPLICIT_WAIT_TIME));

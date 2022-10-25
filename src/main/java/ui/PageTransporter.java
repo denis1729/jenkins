@@ -1,15 +1,16 @@
 package ui;
 
 import config.ServersConfigReader;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
 import selenium.WebDriverManager;
+import utils.LoggerSingleton;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PageTransporter {
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
     private final String baseURL;
     private final WebDriver webDriver;
     private final WebDriverManager webDriverManager;
@@ -30,15 +31,13 @@ public class PageTransporter {
      * Goes to the given URL.
      *
      * @param url - Site's URL.
-     * @throws MalformedURLException Exception
      */
-    private void goToURL(final String url) throws MalformedURLException {
+    private void goToURL(final String url) {
         try {
             webDriver.manage().deleteAllCookies();
             webDriver.navigate().to(new URL(url));
         } catch (MalformedURLException e) {
             log.error("Could not go to URL", e);
-            throw e;
         }
     }
 
@@ -46,9 +45,8 @@ public class PageTransporter {
      * Navigates to Login Page.
      *
      * @return New instance of LoginPage.
-     * @throws MalformedURLException Exception
      */
-    public HomePage navigateToHomePage() throws MalformedURLException {
+    public HomePage navigateToHomePage() {
         goToURL(baseURL);
         return new HomePage(this.webDriverManager);
     }
