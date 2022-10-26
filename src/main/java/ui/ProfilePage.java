@@ -37,7 +37,7 @@ public class ProfilePage extends BasePage {
         return clickHomeButton();
     }
 
-    public String getUserName(String userName) {
+    public String getUserName() {
         return driverTools.getElementText(userNameLabel);
     }
 }

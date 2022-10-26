@@ -8,6 +8,9 @@ public abstract class PaymentPage extends Cart {
     @FindBy(xpath = "//*[@id='cart_navigation']//child::span")
     private WebElement confirmBtn;
 
+    @FindBy(css = "span.price>strong")
+    private WebElement amountLabel;
+
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
      *
@@ -23,6 +26,11 @@ public abstract class PaymentPage extends Cart {
     }
 
     public abstract void selectMethodPay();
+
     public abstract String getBuyMessage();
+
+    public String getAmount() {
+        return driverTools.getElementText(amountLabel).trim();
+    }
 
 }

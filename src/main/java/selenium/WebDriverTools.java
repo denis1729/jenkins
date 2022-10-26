@@ -339,7 +339,7 @@ public class WebDriverTools {
                 }
             }
             if (getElementValue(webElement).equalsIgnoreCase(textSelect)) {
-                log.info(String.format("dato seleccionado %s", getElementValue(webElement)));
+                log.info("dato seleccionado {}", getElementValue(webElement));
                 break;
             } else counter++;
         }
@@ -829,6 +829,38 @@ public class WebDriverTools {
             wait.until(ExpectedConditions.visibilityOf(element));
             new Select(element).selectByVisibleText(value);
         }
+    }
+
+    /**
+     * Selecciona un item de la lista de box.
+     *
+     * @param by    - ListBox WebElement.
+     * @param value - Valor a seleccionar del ListBox.
+     */
+    public void selectListBoxByVisibleText(By by, String value) {
+        int count = 0;
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+        wait = new FluentWait<>(driver).
+                withTimeout(Duration.ofMillis(500)).
+                pollingEvery(Duration.ofMillis(1)).
+                ignoring(NoSuchElementException.class);
+        while (count < 100) {
+            try {
+                Select select = new Select(wait.until(webDriver -> webDriver.findElement(by)));
+                select.selectByVisibleText(value);
+                break;
+            } catch (StaleElementReferenceException | NoSuchElementException e) {
+                log.warn(e.getMessage());
+                clickElement(by);
+                count++;
+            }
+        }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(WebDriverConfigReader.getInstance().
+                getImplicitWaitTime()));
+        wait = new FluentWait<>(driver).
+                withTimeout(Duration.ofSeconds(WebDriverConfigReader.getInstance().getExplicitWaitTime())).
+                pollingEvery(Duration.ofMillis(WebDriverConfigReader.getInstance().getWaitSleepTime())).
+                ignoring(NoSuchElementException.class);
     }
 
     /**

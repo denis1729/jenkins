@@ -2,6 +2,8 @@ package entities;
 
 public class Product {
     private String productName;
+    private String size;
+    private String color;
     private double price;
     private int quantity;
 
@@ -27,5 +29,21 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

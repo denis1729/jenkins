@@ -8,7 +8,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.commons.io.FileUtils;
 import org.awaitility.Awaitility;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -20,16 +19,13 @@ import ui.PageTransporter;
 import ui.ProfilePage;
 import utils.LoggerSingleton;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.time.Duration;
 
 import static org.testng.Assert.*;
 
 public class LoginSteps {
     private final PageTransporter pageTransporter;
-    protected final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
 
     //Pages
     private LoginPage loginPage;
@@ -46,7 +42,7 @@ public class LoginSteps {
     }
 
     @Given("^I navigate to Login page$")
-    public void i_navigate_to_login_page() throws MalformedURLException {
+    public void i_navigate_to_login_page() {
         homePage = pageTransporter.navigateToHomePage();
         loginPage = homePage.goToLoginPage();
     }
@@ -72,8 +68,8 @@ public class LoginSteps {
     @Then("^I should login successfully with a (.*?)$")
     public void i_should_login_successfully_with_a(String fullName) {
         String actual = profilePage.getUserName();
-        log.info(String.format("data %s and %s", fullName, actual));
-        assertTrue(fullName.equalsIgnoreCase(actual), "full name the user is showed");
+        log.info("Expected user name: {} and actual user name:{}", fullName, actual);
+        assertEquals(actual, fullName, "full name the user is showed");
     }
 
     @Then("^The following alert should be display \"(.*?)\"$")

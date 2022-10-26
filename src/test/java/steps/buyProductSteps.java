@@ -6,23 +6,28 @@ import entities.Product;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import ui.HomePage;
+import org.slf4j.Logger;
 import ui.PageFactory;
 
+import ui.ProductPage;
 import ui.category.WomanPage;
 import ui.order.*;
+import ui.popup.CartPopup;
+import utils.LoggerSingleton;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class buyProductSteps {
-    private Container container;
+    private final Container container;
+    private final Logger log = LoggerSingleton.getInstance().getLogger(getClass().getName());
     private WomanPage womanPage;
     private Cart cart;
+    private ProductPage productPage;
+    private CartPopup cartPopup;
     private AddressPage addressPage;
     private ShoppingSummary shoppingSummary;
     private ShippingPage shippingPage;
@@ -32,7 +37,6 @@ public class buyProductSteps {
 
     public buyProductSteps(Container container) {
         this.container = container;
-
     }
 
     @When("^I go to the women's category$")
@@ -62,9 +66,9 @@ public class buyProductSteps {
     @And("^I add the following product to the cart$")
     public void iAddTheFollowingProductToTheCart(Map<String, String> object) {
         product = new ObjectMapper().convertValue(object, Product.class);
-        cart = womanPage.selectProduct(product);
-        cart.addItemToCart(product.getQuantity());
-        shoppingSummary = cart.proceedCheckoutShopping();
+        productPage = womanPage.selectProduct(product);
+        cartPopup = productPage.addToCart(product);
+        shoppingSummary = cartPopup.proceedCheckoutShopping();
         addressPage = shoppingSummary.proceedCheckoutAddress();
         shippingPage = addressPage.proceedCheckoutShipping();
         shippingPage.agreeCheckbox();
@@ -82,7 +86,8 @@ public class buyProductSteps {
     @Then("^I should buy the product successfully and show the following message$")
     public void iShouldBuyTheProductSuccessfullyAndShowThe(String message) {
         String actual = paymentPage.getBuyMessage();
-        assertEquals(actual, message, "full name the user is showed");
+        log.info("Actual message: {} and expected message {}", actual, message);
+        assertEquals(actual, message, "The message not equals");
     }
 
     @Then("^The total price should be equals to price by quantity more the shipping (.*?) US$")
@@ -90,6 +95,7 @@ public class buyProductSteps {
         String actual = paymentPage.getAmount();
         String expected = NumberFormat.getCurrencyInstance(Locale.US).
                 format(product.getPrice() * product.getQuantity() + shipping);
+        log.info("Actual amount: {} and expected amount {}", actual, expected);
         assertEquals(actual, expected, "the total price not equals");
     }
 }

@@ -17,7 +17,6 @@ Feature: Verify login with valid an invalid credentials
     When I login as "<User email>" with password "<Password>"
     Then The following alert should be display "There is 1 error"
       And I shouldn't login and show the following message "<Message>"
-
     Examples: Short pass
       | User email              | Password    | Message                    |
       | pepito.perez@gmail.com  |             | Password is required.      |

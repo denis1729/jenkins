@@ -9,6 +9,7 @@ public class Cart extends HomePage {
 
     private final By cartBtn = By.cssSelector("#add_to_cart>button");
     private final By proceedCheckoutBtn = By.cssSelector("[title='Proceed to checkout']");
+    private final By continueShoppingBtn = By.cssSelector("[title='Continue shopping']");
 
     /**
      * Initializes the web driver, wait, web driver tools and web elements.
@@ -29,6 +30,10 @@ public class Cart extends HomePage {
     }
 
     public void addItemToCart() {
+        clickCartButton();
+    }
+
+    public void addItemToCart(int quantity) {
         clickCartButton();
     }
 
